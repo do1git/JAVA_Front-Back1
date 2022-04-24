@@ -20,6 +20,18 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    //변경감지 후 영속성 엔티티를 리턴함
+    // 서비스계층에서 파라미터로 변경할 것만 받자
+    @Transactional
+    public Item updateItem(Long itemId, String name, int price, int stockQuantity) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setPrice(price);
+        findItem.setName(name);
+        findItem.setStockQuantity(stockQuantity);
+        return findItem;
+
+    }
+
     public List<Item> findItems(){
         return itemRepository.findAll();
     }
